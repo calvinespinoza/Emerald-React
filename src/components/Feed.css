@@ -1,0 +1,141 @@
+.demo-card-wide.mdl-card {
+    width: 600px;
+    margin: 15px;
+    border-radius: 10px;
+}
+
+.demo-card-wide>.mdl-card__title {
+    color: #fff;
+    height: 176px;
+    background: rgb(137, 119, 167);
+    background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
+}
+
+.demo-card-wide>.my-card-title {
+    color: #fff;
+    height: 176px;
+    background: rgb(137, 119, 167);
+    background: linear-gradient(90deg, #FDBB2D 0%, #22C1C3 100%);
+}
+
+.demo-card-wide>.mdl-card__menu {
+    color: #fff;
+}
+
+.mdl-textfield__input {
+    background-color: rgb(255, 255, 255, 0.8);
+    width: 80vh;
+    height: 150px;
+    margin: 20px;
+    border: 4px linear-gradient(90deg, #d53369 0%, #daae51 100%);
+}
+
+.mdl-card {
+    width: 600px;
+    margin: 15px;
+}
+
+#mainDiv {
+    text-align: center;
+    font-family: Montserrat;
+}
+
+#titleText {
+    font-family: Montserrat;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
+
+#submitBtn {
+    background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
+    margin: 3em;;
+    font-family: Montserrat;
+    letter-spacing: 2px;
+    font-weight: 700;
+    width: 20vmin;
+    height: 7vmin;
+    font-size: .75em;
+    border-radius: 10px;
+
+}
+
+#feed {
+    font-family: Montserrat;
+    font-size: 4vmin;
+}
+
+h1 {
+    font-family: Montserrat;
+    font-weight: 900;
+    font-size: 3em;
+    margin-top:50px;
+    color: rgb(46, 64, 83)
+}
+
+h2 {
+    font-size: 1em;
+    font-family: Montserrat;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: rgb(83, 99, 116);
+}
+.mdl-radio {
+    margin:10px;
+}
+
+.mdl-radio__label {
+    margin: 5px;
+    text-transform: uppercase;
+    letter-spacing: .25em;
+    font-weight: 700;
+    color: rgb(83, 99, 116);
+    font-size: .75em;
+}
+
+.mdl-radio__button{
+    background-color: #d53369;
+
+}
+
+.mdl-textfield__input {
+    font-family: Montserrat;
+    font-weight: 700;
+    letter-spacing: 2px;
+    height: 20vmin;
+    font-size: .8em;
+}
+
+#input-area {
+    margin: 10vmin;
+    width: 80vmin;
+    margin: 0 auto;
+}
+
+@media (max-width: 700px) {
+    .demo-card-wide.mdl-card {
+        width: 80vw;
+        height: 40vmin;
+        margin: 2vh;
+    }
+
+    #mainText {
+        width: 80vw;
+        font-size: .8em;
+    }
+    #submitBtn {
+        width: 25vmin;
+        font-size: .6em;
+    }
+
+    .mdl-textfield__input {
+        font-size: .25em;
+    }
+}
+
+@media(min-width: 500px) {
+    #feed {
+        font-size: 2.5vmin;
+    }
+
+}
