@@ -2,6 +2,23 @@
     width: 600px;
     margin: 15px;
     border-radius: 10px;
+        
+    animation-name: example;
+    animation-duration: 1s;
+    --animation-delay: s;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes example {
+    /*
+    0%   {background-color:red; left:0px; top:0px;}
+    25%  {background-color:yellow; left:200px; top:0px;}
+    50%  {background-color:blue; left:200px; top:200px;}
+    75%  {background-color:green; left:0px; top:200px;}
+    100% {background-color:red; left:0px; top:0px;}
+*/
+    0% {top: 200px}
+    100% {top: 0px}
 }
 
 .demo-card-wide>.mdl-card__title {
@@ -57,7 +74,13 @@
     height: 7vmin;
     font-size: .75em;
     border-radius: 10px;
+    transition: transform .2s;
+}
 
+#submitBtn:hover {
+    transform: scale(1.05);
+    -ms-transform: scale(1.05); /* IE 9 */
+    -webkit-transform: scale(1.05);
 }
 
 #feed {
@@ -128,7 +151,7 @@ h2 {
         font-size: .6em;
     }
 
-    .mdl-textfield__input {
+    .mdl-textfield__input-text {
         font-size: .25em;
     }
 }

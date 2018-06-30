@@ -10,6 +10,7 @@ import  SignIn  from './components/SignIn';
 import { Landing } from './components/Landing';
 import { Navbar } from './components/Navbar';
 import { Feed } from './components/Feed';
+import { Account } from './components/Account';
 
 import * as routes from './constants/routes';
 
@@ -28,6 +29,7 @@ class App extends Component {
       authUser ? this.setState(()=>({authUser}))
               : this.setState(() => ({authUser: null}));
     });
+    console.log(this.state.authUser);
   }
 
 
@@ -58,7 +60,7 @@ class App extends Component {
             <Navbar user={this.state.authUser} />
             <Route
               exact path={routes.LANDING}
-              component={() => <Landing />}
+              component={() => <Landing user={this.state.authUser} />}
             />
 
 
@@ -91,11 +93,11 @@ class App extends Component {
               exact path={routes.HOME}
               component={() => <Feed />}
             />
-            {/*
+            {
             <Route
               exact path={routes.ACCOUNT}
               component={() => <Account />}
-            />*/}
+            />}
           </div>
 
         </Router>

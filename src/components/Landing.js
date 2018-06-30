@@ -4,6 +4,7 @@ import SignIn from './SignIn';
 import logo from './logo.png';
 
 export class Landing extends Component {
+
     render() {
         return (
             <div id="landing-div">
@@ -12,7 +13,7 @@ export class Landing extends Component {
                 <div id="h2">Your social network</div>
                 <div id="h3">You are signed out</div>
 
-                <SignIn />
+                <SignIn user={this.props.user}/>
             </div>
         );
     }

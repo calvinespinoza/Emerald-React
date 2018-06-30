@@ -12,53 +12,31 @@ export class Feed extends Component {
 
     submitClick() {
         var mainText = document.getElementById("mainText");
+
+
         firebase.auth().onAuthStateChanged(function (user) {
             var messageText = mainText.value;
             if (user) {
                 var ref = firebase.database().ref().child("Mensajes");
-                var userRef = firebase.database().ref().child("Usuarios").child(user.uid);
                 var radios = document.getElementsByName('options');
 
                 if (radios[0].checked) {
-
-
-                    userRef.child("Mensajes Publicos").once('value').then(function (snapshot) {
-                        var pub = snapshot.val();
-                        if (pub == null) {
-                            pub = 0;
-                        }
-                        console.log(pub);
-                        userRef.child("Mensajes Publicos").set(pub + 1);
-                        ref.push().set({
-                            Usuario: user.uid,
-                            Mensaje: messageText,
-                            Publico: "True"
-                        });
+                    ref.push().set({
+                        Usuario: user.uid,
+                        Mensaje: messageText,
+                        Publico: "True"
                     });
-                    let url = "https://us-central1-qwerty-e2961.cloudfunctions.net/msgPublic?text=" + user.uid;
-                    let request = new XMLHttpRequest();
-                    request.open('PUT', url);
-                    request.send();
                 }
+
                 if (radios[1].checked) {
 
-                    userRef.child("Mensajes Privados").once('value').then(function (snapshot) {
-                        var priv = snapshot.val();
-                        if (priv == null) {
-                            priv = 0;
-                        }
-                        console.log(priv);
-                        userRef.child("Mensajes Privados").set(priv + 1);
-                        ref.push().set({
-                            Usuario: user.uid,
-                            Mensaje: messageText,
-                            Publico: "False"
-                        });
+                    ref.push().set({
+                        Usuario: user.uid,
+                        Mensaje: messageText,
+                        Publico: "False"
                     });
-                    let url = "https://us-central1-qwerty-e2961.cloudfunctions.net/msgPrivate?text=" + user.uid;
-                    let request = new XMLHttpRequest();
-                    request.open('PUT', url);
-                    request.send();
+
+
                 }
 
             } else {
@@ -78,14 +56,14 @@ export class Feed extends Component {
 
             userRef.once('value').then(function (snapshot) {
                 var name = snapshot.val();
-                console.log(name);
+                console.log("Messsage by: " + name);
                 var message = snap.child("Mensaje").val();
                 var publico = snap.child("Publico").val();
 
                 var user = firebase.auth().currentUser;
                 var text;
                 var nom;
-                if (/*user*/true) {
+                if (user) {
                     var mainDiv = document.createElement('div');
                     mainDiv.className = "demo-card-wide mdl-card mdl-shadow--2dp";
                     mainDiv.setAttribute("id", "mainDiv");
@@ -121,7 +99,7 @@ export class Feed extends Component {
                     mainDiv.appendChild(cardMenu);
 
 
-                    if (/*user.uid === id*/true) {
+                    if (user.uid === id) {
                         nom = document.createTextNode(name + " (You)");
                         if (publico === "False") {
                             text = document.createTextNode('lock');
@@ -136,8 +114,6 @@ export class Feed extends Component {
                     }
                     supText.appendChild(nom);
                     icon.appendChild(text);
-
-                    console.log(mainDiv);
                     document.getElementById("mainFeed").appendChild(mainDiv);
                     //mf.appendChild(mainDiv);
                     //mainFeed.appendChild(msgFeed);
