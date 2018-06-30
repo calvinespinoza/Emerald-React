@@ -15,7 +15,7 @@ export class Navbar extends Component {
             </li>
         ));
         return (
-            <nav id="navBar" className="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+            <nav id="navBar" className="navbar sticky-top navbar-expand-lg navbar-light">
                 <img src={logo} id="nav-logo" alt="logo" />
                 <a className="navbar-brand" id="navbar-brand" href="#">Emerald</a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"

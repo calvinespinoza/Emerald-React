@@ -25,7 +25,7 @@
     color: #fff;
     height: 176px;
     background: rgb(137, 119, 167);
-    background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
+    background: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
 }
 
 .demo-card-wide>.my-card-title {
@@ -65,7 +65,7 @@
 
 
 #submitBtn {
-    background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
+    background: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
     margin: 3em;;
     font-family: Montserrat;
     letter-spacing: 2px;
