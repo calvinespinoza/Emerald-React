@@ -43,6 +43,8 @@ export class Feed extends Component {
                 // No user is signed in.
             }
         })
+
+        mainText.innerHTML = "";
     }
 
     componentWillMount() {

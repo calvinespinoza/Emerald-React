@@ -73,7 +73,9 @@ class SignInForm extends Component {
                     "Email": user.email,
                     "Telephone": user.phoneNumber,
                     "Photo URL": user.photoURL,
-                    "UID": user.uid
+                    "UID": user.uid,
+                    "Mensajes Publicos": 0,
+                    "Mensajes Privados": 0
                 })
                 // ...
             }).catch(function (error) {

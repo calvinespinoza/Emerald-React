@@ -9,24 +9,100 @@ export class Account extends Component {
         this.state = {
             nombre: "Name",
             email: "example@emerald.com",
-            photoUrl: "https://goo.gl/WdEvLP" ,
+            photoUrl: "https://goo.gl/WdEvLP",
+            publicos: 0,
+            privados: 0
 
         }
     }
 
-    componentDidMount()
-    {
+    componentDidMount() {
         if (firebase.auth().currentUser !== null) {
-            var ref = firebase.database().ref('Usuarios/'+ firebase.auth().currentUser.uid);
+            var ref = firebase.database().ref('Usuarios/' + firebase.auth().currentUser.uid);
             console.log("Obtaining data from database...");
             ref.on("value", (snapshot) => {
                 this.setState({
                     nombre: snapshot.child("Name").val(),
                     email: snapshot.child("Email").val(),
-                    photoUrl: snapshot.child("Photo URL").val()
+                    photoUrl: snapshot.child("Photo URL").val(),
+                    publicos: snapshot.child("Mensajes Publicos").val(),
+                    privados: snapshot.child("Mensajes Privados").val()
                 })
             });
         }
+
+        var messageRef = firebase.database().ref().child("Mensajes");
+        //var msgFeed = document.getElementById("feed");
+        //var mf = document.getElementById("mainFeed");
+
+        messageRef.on("child_added", snap => {
+            var id = snap.child("Usuario").val();
+            var userRef = firebase.database().ref().child("Usuarios").child(id).child("Name");
+
+            userRef.once('value').then(function (snapshot) {
+                var name = snapshot.val();
+                console.log("Messsage by: " + name);
+                var message = snap.child("Mensaje").val();
+                var publico = snap.child("Publico").val();
+
+                var user = firebase.auth().currentUser;
+                var text;
+                var nom;
+                if (user) {
+                    var mainDiv = document.createElement('div');
+                    mainDiv.className = "demo-card-wide mdl-card mdl-shadow--2dp col-md-4";
+                    mainDiv.setAttribute("id", "mainDiv");
+
+                    var card = document.createElement('div');
+                    card.className = "mdl-card__title";
+
+                    var titleText = document.createElement('h2');
+                    titleText.className = "mdl-card__title-text";
+                    titleText.setAttribute("id", "titleText");
+
+                    var msg = document.createTextNode(message);
+
+                    var supText = document.createElement('div');
+                    supText.className = "mdl-card__supporting-text";
+
+                    var cardMenu = document.createElement('div');
+                    cardMenu.className = "mdl-card__menu";
+
+                    var button = document.createElement('button');
+                    button.className = "mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect";
+
+                    var icon = document.createElement('i');
+                    icon.className = "material-icons";
+
+                    cardMenu.appendChild(button);
+                    button.appendChild(icon);
+
+                    titleText.appendChild(msg);
+                    card.appendChild(titleText);
+                    mainDiv.appendChild(card);
+                    mainDiv.appendChild(supText);
+                    mainDiv.appendChild(cardMenu);
+
+
+                    if (user.uid === id) {
+                        nom = document.createTextNode(name + " (You)");
+                        if (publico === "False") {
+                            text = document.createTextNode('lock');
+                        } else {
+                            text = document.createTextNode('public');
+                        }
+                        supText.appendChild(nom);
+                        icon.appendChild(text);
+                        document.getElementById("mymessages").appendChild(mainDiv); 
+                    }
+
+                    //mf.appendChild(mainDiv);
+                    //mainFeed.appendChild(msgFeed);
+                }
+            });
+
+        })
+
     }
 
     render() {
@@ -50,19 +126,18 @@ export class Account extends Component {
                                 <p className="info">{this.state.email}</p>
                                 <div className="stats row">
                                     <div className="stat col-xs-4" >
-                                        <p className="number-stat">3,619</p>
-                                        <p className="desc-stat">Followers</p>
+                                        <p className="number-stat">{this.state.publicos + this.state.privados}</p>
+                                        <p className="desc-stat">Mensajes</p>
                                     </div>
                                     <div className="stat col-xs-4">
-                                        <p className="number-stat">42</p>
+                                        <p className="number-stat">{this.state.privados}</p>
                                         <p className="desc-stat">Private</p>
                                     </div>
                                     <div className="stat col-xs-4" >
-                                        <p className="number-stat">38</p>
+                                        <p className="number-stat">{this.state.publicos}</p>
                                         <p className="desc-stat">Public</p>
                                     </div>
                                 </div>
-                                <p className="desc">Hi ! My name is Jane Doe. I'm a UI/UX Designer from Paris, in France. I really enjoy photography and mountains.</p>
                                 <div className="social">
                                     <i className="fa fa-facebook-square" aria-hidden="true"></i>
                                     <i className="fa fa-twitter-square" aria-hidden="true"></i>
@@ -72,13 +147,9 @@ export class Account extends Component {
                             </div>
                             <div className="right col-lg-8">
                                 <ul className="nav">
-                                    <li>Gallery</li>
-                                    <li>Collections</li>
-                                    <li>Groups</li>
-                                    <li>About</li>
+                                    <li>Your Photos</li>
                                 </ul>
-                                <span className="follow">Follow</span>
-                                <div className="row gallery">
+                                <div className="row gallery" id="mymessages">
                                     <div className="col-md-4">
                                         <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774813-photo4.jpg" />
                                     </div>
